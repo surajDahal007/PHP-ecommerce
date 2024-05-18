@@ -28,11 +28,13 @@
             $price = $row['item_price'];
 
             echo '
-            <div class="col my-3 py-2">
+            <div class="col my-0 py-3">
             <div class="card shadow-sm">
-                    <img src="'. $image .' " height="300" alt="">
+                <a href="/e-commerce/product.php?id='. $id .'">
+                    <img src="'. $image .' " height="200" class="rounded mx-auto d-block" width="200" alt="item image">
+                </a>
                     <title>'. $name .'</title>
-                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                
                 <div class="card-body">
                     <h5 class="card-text">'. $name .'</h5>
                     <div class="d-flex justify-content-between">
