@@ -25,10 +25,10 @@
                     <a class="nav-link" href="/e-commerce/developer.php">Developer</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
+            <!-- <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="What are you looking?" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            </form> -->
             <?php
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     echo '<p class="mx-2 my-1 text-white">Hello '.$_SESSION['username'].'</p>'; 
@@ -36,7 +36,7 @@
                     <a href="partials/_handleLogout.php" type="button" class="btn btn-success mx-2">
                         Logout
                     </a>
-                    <button class="btn border btn-warning" type="button">Cart</button>
+                    <button class="btn border btn-warning fw-bold" type="button">Cart</button>
                     ';
                 }
                 else {
