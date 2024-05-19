@@ -1,3 +1,8 @@
+<?php
+    session_start();
+?>
+
+
 <nav class="navbar navbar-expand-lg border-bottom bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/e-commerce">P-COMMERCE</a>
@@ -24,12 +29,28 @@
                 <input class="form-control me-2" type="search" placeholder="What are you looking?" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-            <button type="button" class="btn btn-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal">
-                Login
-            </button>
-            <button type="button" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#signupModal">
-                Signup
-            </button>
+            <?php
+                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+                    echo '<p class="mx-2 my-1 text-white">Hello '.$_SESSION['username'].'</p>'; 
+                    echo'
+                    <a href="partials/_handleLogout.php" type="button" class="btn btn-success mx-2">
+                        Logout
+                    </a>
+                    <button class="btn border btn-warning" type="button">Cart</button>
+                    ';
+                }
+                else {
+                    echo '
+                    <button type="button" class="btn btn-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        Login
+                    </button>
+                    <button type="button" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#signupModal">
+                        Signup
+                    </button>
+                    ';
+                }
+            ?>
+           
         </div>
     </div>
 </nav>
@@ -43,14 +64,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/e-commerce/partials/_handleSignup.php" method="post">
+                <form action="/e-commerce/partials/_handleLogin.php" method="post">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <input type="password" class="form-control" id="password" name="password">
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
@@ -120,6 +141,15 @@
         echo '
         <div class="alert alert-success alert-dismissible fade show my-0" role="alert">
           <strong>Welcome! </strong> LoggedIn Successfully.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        ';
+    }
+
+    if (isset($_GET['loginfailure'])) {
+        echo '
+        <div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
+          <strong>Error! </strong> Could not log you
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         ';

@@ -16,7 +16,7 @@
         <h1 class="text-center my-3 display-5">About Developer</h1>
 
         <div class="my-5">
-            <img class="rounded-circle mx-auto d-block my-3" src="images/developer.jpg" height="260px"
+            <img class="rounded-circle mx-auto d-block my-2" src="images/developer.jpg" height="260px"
                 alt="developer image">
             <div class=" text-center">
                 <h2 class="fw-normal">Suraj Dahal</h2>
