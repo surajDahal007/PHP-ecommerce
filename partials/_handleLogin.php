@@ -18,7 +18,10 @@
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $row['first_name'];
                 $_SESSION['userEmail'] = $email;
-                // echo '<h1>Loggedin </h1>';                    
+                $_SESSION['user_id'] = $row['sno']; 
+                $_SESSION['cart_item'] = 0;
+
+                    
                 header("Location: /e-commerce/index.php?loginsuccess");
             }else {
                 header("Location: /e-commerce/index.php?loginfailure");

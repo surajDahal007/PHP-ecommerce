@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include '_dbconnect.php';
 ?>
 
 
@@ -25,10 +26,7 @@
                     <a class="nav-link" href="/e-commerce/developer.php">Developer</a>
                 </li>
             </ul>
-            <!-- <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="What are you looking?" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
+           
             <?php
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     echo '<p class="mx-2 my-1 text-white">Hello '.$_SESSION['username'].'</p>'; 
@@ -36,7 +34,12 @@
                     <a href="partials/_handleLogout.php" type="button" class="btn btn-success mx-2">
                         Logout
                     </a>
-                    <button class="btn border btn-warning fw-bold" type="button">Cart</button>
+                    <a href="/e-commerce/cart.php" class="btn btn-warning fw-bold" type="button">
+                        Cart '. $_SESSION['cart_item'] .'
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                        </svg>
+                    </a>
                     ';
                 }
                 else {
@@ -50,10 +53,10 @@
                     ';
                 }
             ?>
-           
         </div>
     </div>
 </nav>
+
 
 <!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
@@ -71,7 +74,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="user_password" name="password">
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
@@ -125,6 +128,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <?php
@@ -152,6 +156,15 @@
           <strong>Error! </strong> Could not log you
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        ';
+    }
+
+    if (isset($_GET['itemsuccess'])) {
+        echo '
+          <div class="alert alert-success alert-dismissible fade show my-0" role="alert">
+            <strong>Item added to Cart.</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
         ';
     }
 

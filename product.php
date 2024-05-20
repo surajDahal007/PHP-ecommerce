@@ -1,40 +1,3 @@
-<?php
-    // session_start();
-
-    if (isset($_POST['add_to_cart'])) {
-
-        if (isset($_SESSION["cart"])) {
-            $item_array_id = array_column($_SESSION["cart"], "item_id");
-
-            if (!in_array($_GET["id"], $item_array_id)) {
-                $count = count($_SESSION['cart']);
-
-                $item_array = array(
-                    'item_id' => $_GET['id'],
-                    'item_name' => $_POST['hidden_name'],
-                    'item_price' => $_POST['hidden_price'],
-                    'item_quantity' =>  $_POST['quantity']
-                );
-                $_SESSION['cart'][$count] = $item_array;
-            }
-            else {
-                echo '<script>Item already added.</script>';
-                header("Location: /e-commerce/product.php?id=$id");
-            }
-
-        }
-        else {
-            $item_array = array (
-                'item_id' => $_GET['id'],
-                'item_name' => $_POST['hidden_name'],
-                'item_price' => $_POST['hidden_price'],
-                'item_quantity' =>  $_POST['quantity']
-            );
-            $_SESSION["cart"][0] = $item_array;
-        }
-    }
-?>
-
 <!doctype html>
 <html lang="en">
 
@@ -76,24 +39,34 @@
 
         if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
             echo '
-                <p>
-                
-                    <button type="submit" class="btn btn-outline-success" name="add_to_cart">
-                        Add to Cart
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check" viewBox="0 0 16 16">
-                            <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
-                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                        </svg>
-                    </button>
 
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary mx-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Buy Now
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check-fill " viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0m-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+            <div class="d-flex justify-content-between">
+                <form action="partials/_addToCart.php" method="post">
+                    <input type="hidden" name="hidden_id" id="item_name" value="'. $row['item_no'] .'">
+                    <input type="hidden" name="hidden_name" id="item_name" value="'. $row['item_name'] .'">
+                    <input type="hidden" name="hidden_price" id="item_price" value="'. $row['item_price'] .'">
+                    <input type="number" name="quantity" id="quantity" placeholder="Quantity">
+        
+                    <button type="submit" class="btn btn-outline-success">
+                        Add to Cart
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
+                            <path
+                                d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
                         </svg>
                     </button>
-                </p>
+                </form>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary mx-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Buy Now
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check-fill " viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0m-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+                    </svg>
+                </button>
+            </div>
             ';
         }
         else {
@@ -109,23 +82,6 @@
         </div>'
         ;
     ?>
-
-    <form action="product.php?action=add&id=<?php echo $id ?>" method="post">
-        <input type="hidden" name="hidden_name" id="item_name" value="<?php echo $row['item_name'] ?>">
-        <input type="hidden" name="hidden_price" id="item_price" value="<?php echo $row['item_name'] ?>">
-        <input type="number" name="quantity" id="quantity" placeholder="Quantity">
-
-        <button type="submit" class="btn btn-outline-success" name="add_to_cart">
-            Add to Cart
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check"
-                viewBox="0 0 16 16">
-                <path
-                    d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
-                <path
-                    d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-            </svg>
-        </button>
-    </form>
 
 
     <!-- Modal -->
