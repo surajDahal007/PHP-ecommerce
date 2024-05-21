@@ -26,14 +26,15 @@
                     <a class="nav-link" href="/e-commerce/developer.php">Developer</a>
                 </li>
             </ul>
-           
+
             <?php
                 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     echo '<p class="mx-2 my-1 text-white">Hello '.$_SESSION['username'].'</p>'; 
                     echo'
-                    <a href="partials/_handleLogout.php" type="button" class="btn btn-success mx-2">
+                    <button type="button" class="btn btn-success mx-2" data-bs-toggle="modal" data-bs-target="#logoutModal">
                         Logout
-                    </a>
+                    </button>
+                    
                     <a href="/e-commerce/cart.php" class="btn btn-warning fw-bold" type="button">
                         Cart '. $_SESSION['cart_item'] .'
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
@@ -128,7 +129,28 @@
             </div>
         </div>
     </div>
+</div>
 
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="logoutModal">Logout of P-commerce?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                You can always log back in at any time.
+                Make sure you purchase all items that you intended to.
+                <div class="vstack gap-2 col-md-5 mx-auto my-4">
+                    <a href="partials/_handleLogout.php" type="button" class="btn btn-success">
+                        Logout
+                    </a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php
@@ -163,6 +185,24 @@
         echo '
           <div class="alert alert-success alert-dismissible fade show my-0" role="alert">
             <strong>Item added to Cart.</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        ';
+    }
+
+    if (isset($_GET['itemremoved'])) {
+        echo '
+          <div class="alert alert-success alert-dismissible fade show my-0" role="alert">
+            <strong>Item successfully removed from Cart.</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        ';
+    }
+
+    if (isset($_GET['allitemremoved'])) {
+        echo '
+          <div class="alert alert-success alert-dismissible fade show my-0" role="alert">
+            <strong>All Items removed from Cart.</strong> 
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         ';

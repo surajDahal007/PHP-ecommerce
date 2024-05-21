@@ -13,10 +13,8 @@
         $sql = "INSERT INTO `cart` (`user_id`, `item_name`, `quantity`, `price`, `timestamp`) VALUES ('$user_id', '$name', '$quantity', '$price', current_timestamp())";
         $result = mysqli_query($conn, $sql);
         $_SESSION['cart_item'] += $quantity;
-        echo '<script>Item added to Cart</script>';
 
-        // header("Location: /e-commerce/product.php?id=$id");
-        header("Location: /e-commerce/?itemsuccess");
+        header("Location: /e-commerce/product.php?id=$id&itemsuccess");
     }
     
 ?>
