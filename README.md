@@ -1,6 +1,6 @@
 # P-Commerce
 
-P-commerce is an e-commerce website developed entirely using PHP. The project was first developed in localhost --> XAMPP & later configured and deployed in [infinity free](https://www.infinityfree.com/) server.
+P-commerce is an e-commerce website developed entirely using PHP. The project was first developed in localhost XAMPP & later configured and deployed in [infinity free](https://www.infinityfree.com/) server.
 
 ## Technologies Used
 
